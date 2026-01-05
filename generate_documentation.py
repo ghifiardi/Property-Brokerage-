@@ -9,12 +9,33 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.style import WD_STYLE_TYPE
 
 def add_heading_with_style(doc, text, level=1):
-    """Add a styled heading to the document"""
+    """
+    Add a styled heading to the document.
+    
+    Args:
+        doc: Document object to add heading to
+        text: Heading text content
+        level: Heading level (1-9), default is 1
+    
+    Returns:
+        Heading paragraph object
+    """
     heading = doc.add_heading(text, level=level)
     return heading
 
 def add_styled_paragraph(doc, text, bold=False, italic=False):
-    """Add a styled paragraph to the document"""
+    """
+    Add a styled paragraph to the document.
+    
+    Args:
+        doc: Document object to add paragraph to
+        text: Paragraph text content
+        bold: Whether to make text bold
+        italic: Whether to make text italic
+    
+    Returns:
+        Paragraph object
+    """
     para = doc.add_paragraph()
     run = para.add_run(text)
     if bold:
@@ -23,8 +44,17 @@ def add_styled_paragraph(doc, text, bold=False, italic=False):
         run.italic = True
     return para
 
-def create_property_brokerage_documentation():
-    """Create comprehensive Property Brokerage documentation"""
+def create_property_brokerage_documentation(output_path=None):
+    """
+    Create comprehensive Property Brokerage documentation in DOCX format.
+    
+    Args:
+        output_path: Optional path where to save the DOCX file.
+                    If None, saves to current directory as Property_Brokerage_Documentation.docx
+    
+    Returns:
+        str: Path to the generated documentation file
+    """
     
     # Create a new Document
     doc = Document()
@@ -417,7 +447,7 @@ def create_property_brokerage_documentation():
     
     add_heading_with_style(doc, '12.1 API Authentication', level=2)
     doc.add_paragraph('Authentication Method: OAuth 2.0 / API Keys')
-    doc.add_paragraph('API Endpoint: https://api.yourdomain.com/v1/')
+    doc.add_paragraph('API Endpoint: https://api.propertybrokerage.com/v1/')
     doc.add_paragraph('Required Headers:')
     doc.add_paragraph('  - Authorization: Bearer {token}', style='List Bullet 2')
     doc.add_paragraph('  - Content-Type: application/json', style='List Bullet 2')
@@ -535,16 +565,16 @@ def create_property_brokerage_documentation():
     add_heading_with_style(doc, '15. Support and Contact Information', level=1)
     
     add_heading_with_style(doc, '15.1 Technical Support', level=2)
-    doc.add_paragraph('Email: support@propertybrokerage.com')
-    doc.add_paragraph('Phone: 1-800-PROPERTY (1-800-776-7378)')
-    doc.add_paragraph('Support Hours: Monday-Friday, 8:00 AM - 8:00 PM EST')
-    doc.add_paragraph('Emergency Support: 24/7 for critical issues')
+    doc.add_paragraph('Email: support@propertybrokerage.com (configure with your actual support email)')
+    doc.add_paragraph('Phone: 1-800-PROPERTY (configure with your actual support phone)')
+    doc.add_paragraph('Support Hours: Configure based on your organization\'s availability')
+    doc.add_paragraph('Emergency Support: Configure based on your SLA requirements')
     
     add_heading_with_style(doc, '15.2 Additional Resources', level=2)
-    doc.add_paragraph('Online Help Center: https://help.propertybrokerage.com')
-    doc.add_paragraph('Video Tutorials: https://tutorials.propertybrokerage.com')
-    doc.add_paragraph('User Community Forum: https://community.propertybrokerage.com')
-    doc.add_paragraph('API Documentation: https://api.propertybrokerage.com/docs')
+    doc.add_paragraph('Online Help Center: Configure with your help center URL')
+    doc.add_paragraph('Video Tutorials: Configure with your tutorials URL')
+    doc.add_paragraph('User Community Forum: Configure with your community forum URL')
+    doc.add_paragraph('API Documentation: Configure with your API documentation URL')
     
     add_heading_with_style(doc, '15.3 Training and Onboarding', level=2)
     doc.add_paragraph('Live training sessions available')
@@ -554,8 +584,8 @@ def create_property_brokerage_documentation():
     
     add_heading_with_style(doc, '15.4 Feedback and Suggestions', level=2)
     doc.add_paragraph('We value your feedback! Share your suggestions:')
-    doc.add_paragraph('Email: feedback@propertybrokerage.com')
-    doc.add_paragraph('Feature Request Portal: https://feedback.propertybrokerage.com')
+    doc.add_paragraph('Email: feedback@propertybrokerage.com (configure with your feedback email)')
+    doc.add_paragraph('Feature Request Portal: Configure with your feature request portal URL')
     
     doc.add_page_break()
     
@@ -613,7 +643,10 @@ def create_property_brokerage_documentation():
     data_cells[3].text = 'Initial documentation release'
     
     # Save the document
-    output_path = '/home/runner/work/Property-Brokerage-/Property-Brokerage-/Property_Brokerage_Documentation.docx'
+    if output_path is None:
+        # Use relative path - saves to current directory
+        output_path = 'Property_Brokerage_Documentation.docx'
+    
     doc.save(output_path)
     print(f'Documentation successfully created: {output_path}')
     
